@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/logo.png" type="image/x-icon">
+    <title>Sunlight Intensity</title>
+    <link rel="stylesheet" href="./style4.css">
+</head>
+<style>
+    body {
+    background-image: url('/static/sunlightbbg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Header styles */
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    
+}
+
+header h1 {
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: inline-block;
+    font-family: Tahoma, Verdana, sans-serif;
+    background: -webkit-linear-gradient(#b8cc37f1, #7bd28f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: underlineAnimation 1.5s ease-in-out  ;
+
+    }
+
+header h1::after {
+    content: ''; 
+    position: absolute;
+    left: 0;
+    bottom: -5px; 
+    width: 100%;
+    height: 2px; 
+    background: linear-gradient(90deg,#ffffff, #ffffff);
+    background-size: 200% 100%; 
+    animation: underlineAnimation 1.5s ease-in-out  ;
+}
+
+header h1:hover::after {
+    transform-origin: bottom left;
+    transform: scaleX(1);
+}
+
+/* Container styles */
+.container {
+    text-align: center;
+    background-color: rgb(240, 238, 140);
+    padding: 20px;
+    margin-top: 100px;
+    margin-left: 70px;
+    margin-right: 70px;
+    
+}
+
+/* Sunlight data styles */
+.sunlight-data {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+h2 {
+    font-size: 35px;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+}
+
+#sunlight-value {
+    font-size: 50px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #fff;
+}
+
+#generate-button {
+    background: linear-gradient(to bottom, #4CAF50, #45a049);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#generate-button:hover {
+    background: linear-gradient(to bottom, #45a049, #4CAF50);
+}
+
+/* Sunlight Animation */
+@keyframes sunlightAnimation {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.sunlight-data {
+    animation: sunlightAnimation 1s ease-out;
+}
+@keyframes underlineAnimation {
+    0% {
+        transform: scaleX(0);
+    }
+    100% {
+        transform: scaleX(1);
+    }
+}
+</style>
+<body>
+    <header>
+        <h1>SUNLIGHT INTENSITY</h1>
+    </header>
+    <div class="container">
+        <div class="sunlight-data">
+            <h2>Sunlight Intensity (lx)</h2>
+            <h1 id="sunlight-value">Connect To Sensor</h1>
+            <h2 class="card-title pricing-card-title" id="ldr-status">Connect To Sensor</h2>
+        </div>
+    </div>
+    <!-- <script src="script2.js"></script> -->
+    <script>
+        function fetchData() {
+            fetch('/ldr')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('sunlight-value').textContent = data + " lux";
+                    if (data < 900){
+                        document.getElementById('ldr-status').textContent = "Night Time";
+                    }
+                    else{
+                        document.getElementById('ldr-status').textContent = "Day Time";
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching temperature data:', error);
+                }); 
+          
+        }
+        // Refresh temperature data when the page loads
+        fetchData();
+        // Refresh temperature data every 2 seconds
+        setInterval(fetchData, 2000);
+    </script>
+</body>
+</html>

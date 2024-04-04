@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale = 1.0">
+    <link rel="icon" href="/static/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/logo.png" type="image/x-icon">
+    <title>Rain Prediction</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: url("/static/raingrass.jpeg") center/cover no-repeat;
+            height:711px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .div-cent {
+            text-align: center;
+            animation: fadeIn 1.5s ease-out; 
+            
+        }
+
+        h1 {
+            font-family: Tahoma, Verdana, sans-serif;
+            background: -webkit-linear-gradient(#fffffff0, #ffffff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2em;
+            margin-bottom: 50px;
+            position: relative;
+            
+        }
+
+        h1::after {
+            content: ''; /* Required for pseudo-elements */
+            position: absolute;
+            left: 0;
+            bottom: -5px; /* Adjust this value to control the distance of the underline */
+            width: 100%;
+            height: 2px; /* Adjust this value to control the thickness of the underline */
+            background: linear-gradient(90deg,#ffffff, #ffffff);
+            background-size: 200% 100%; /* Adjust the background size for the gradient animation */
+            animation: underlineAnimation 1.5s ease-in-out  ; /* Adjust the animation duration as needed */
+        }
+
+@keyframes underlineAnimation {
+            0% {
+                transform: scaleX(0);
+            }
+            100% {
+                transform: scaleX(1);
+            }
+        }
+
+
+
+        img {
+            width: 100%;
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 8px; /* Added border radius for a rounded appearance */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Added box shadow for depth */
+            margin-top: 30px; /* Added margin for spacing */
+        }
+
+        @media (max-width: 768px) {
+            img {
+                width: 85%;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="div-cent">
+        <h1>Rain Prediction for the next 5 days</h1>
+        
+        <!-- Add the dropdown menu -->
+        <label for="cities">Select City:</label>
+        <select id="cities" onchange="updateRainPlot()">
+            <option value="kolkata">Kolkata</option>
+            <option value="mumbai">Mumbai</option>
+            <option value="delhi">Delhi</option>
+            <option value="chennai">Chennai</option>
+            <option value="bengaluru">Bengaluru</option>
+        </select>
+
+        <!-- The container for the rain plot -->
+        <div id="rain-plot-container">
+            <img src="{{ url_for('static', filename='images/rain_plot_' + selectedCity.lower() + '.png') }}" alt="Rain Prediction Plot">
+
+        </div>
+        
+        <!-- JavaScript to handle the dropdown change event -->
+        <script>
+            function updateRainPlot() {
+                var selectedCity = document.getElementById("cities").value;
+            
+                // Update the image source with the selected city
+                var imageUrl = "{{ url_for('static', filename='images/rain_plot_') }}" + selectedCity + ".png";
+                document.querySelector('img').src = imageUrl;
+            
+                // Make an AJAX request to update the rain plot on the server
+                fetch(`/update_rain_plot/${selectedCity}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            console.log(data.message);
+                        } else {
+                            console.error(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error updating rain plot:", error);
+                    });
+            }
+        </script>
+        
+    </div>
+</body>
+
+</html>
+

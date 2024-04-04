@@ -1,0 +1,68 @@
+/* Reset default styles */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+    font-family: Arial, sans-serif;
+}
+
+/* Header styles */
+header {
+    background-image: url('greenbg.jpg'); /* Set a background image */
+    background-size: cover;
+    text-align: center;
+    padding: 50px;
+    color: #fff;
+}
+
+header h1 {
+    font-size: 36px;
+}
+
+/* Container styles */
+.container {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 400px;
+}
+
+/* Data display styles */
+.data {
+    margin: 20px 0;
+}
+
+.data p {
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Soil moisture value styles */
+#soil-moisture {
+    font-size: 24px;
+    color: #007BFF;
+    font-weight: bold;
+}
+
+/* Loading text style */
+#soil-moisture::after {
+    font-style: italic;
+    color: #999;
+}
+
+/* Refresh button style */
+#refresh-button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#refresh-button:hover {
+    background-color: #0056b3;
+}

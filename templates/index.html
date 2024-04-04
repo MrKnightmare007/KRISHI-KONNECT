@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KRISHIKONNECT</title>
+    <link rel="icon" href="/static/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/toorshia/justgage@1.4.0/dist/justgage.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/toorshia/justgage@1.4.0/dist/justgage.min.js"></script>
+    <script>
+      var $SCRIPT_ROOT = { request,script_root,tojson,safe };
+  </script>
+
+
+</head>
+<body>
+    <style>
+        /* Custom CSS for removing padding in the footer */
+        .contact {
+            padding: 0; /* Remove padding */
+        }
+        * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    font-size: 100%;
+    background: #F1F1F1;
+}
+
+*, html {
+    --primaryGradient: linear-gradient(93.12deg, #13e922 0.52%, #0ceb14 100%);
+    --secondaryGradient: linear-gradient(268.91deg, #0b8627 -2.14%, #0d8429 99.69%);
+    --primaryBoxShadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    --secondaryBoxShadow: 0px -10px 15px rgba(0, 0, 0, 0.1);
+    --primary: #18e318;
+}
+
+/* CHATBOX
+=============== */
+.chatbox {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+}
+
+/* CONTENT IS CLOSE */
+.chatbox__support {
+    display: flex;
+    flex-direction: column;
+    background: #eee;
+    width: 300px;
+    height: 350px;
+    z-index: -123456;
+    opacity: 0;
+    transition: all .5s ease-in-out;
+}
+
+/* CONTENT ISOPEN */
+.chatbox--active {
+    transform: translateY(-40px);
+    z-index: 123456;
+    opacity: 1;
+
+}
+
+/* BUTTON */
+.chatbox__button {
+    text-align: right;
+   
+}
+
+.send__button {
+    padding: 6px;
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+
+/* HEADER */
+.chatbox__header {
+    position: sticky;
+    top: 0;
+    background: orange;
+}
+
+/* MESSAGES */
+.chatbox__messages {
+    margin-top: auto;
+    display: flex;
+    overflow-y: scroll;
+    flex-direction: column-reverse;
+}
+
+.messages__item {
+    background: orange;
+    max-width: 60.6%;
+    width: fit-content;
+}
+
+.messages__item--operator {
+    margin-left: auto;
+}
+
+.messages__item--visitor {
+    margin-right: auto;
+}
+
+/* FOOTER */
+.chatbox__footer {
+    position: sticky;
+    bottom: 0;
+}
+
+.chatbox__support {
+    background: #f9f9f9;
+    height: 450px;
+    width: 350px;
+    box-shadow: 0px 0px 15px rgba(9, 218, 54, 0.1);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+/* HEADER */
+.chatbox__header {
+    background: var(--primaryGradient);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: var(--primaryBoxShadow);
+}
+
+.chatbox__image--header {
+    margin-right: 10px;
+}
+
+.chatbox__heading--header {
+    font-size: 1.2rem;
+    color: white;
+}
+
+.chatbox__description--header {
+    font-size: .9rem;
+    color: white;
+}
+
+/* Messages */
+.chatbox__messages {
+    padding: 0 20px;
+}
+
+.messages__item {
+    margin-top: 10px;
+    background: #E0E0E0;
+    padding: 8px 12px;
+    max-width: 70%;
+}
+
+.messages__item--visitor,
+.messages__item--typing {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.messages__item--operator {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background: var(--primary);
+    color: white;
+}
+
+/* FOOTER */
+.chatbox__footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px;
+    background: var(--secondaryGradient);
+    box-shadow: var(--secondaryBoxShadow);
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-top: 20px;
+}
+
+.chatbox__footer input {
+    width: 80%;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 30px;
+    text-align: left;
+}
+
+.chatbox__send--footer {
+    color: white;
+}
+
+.chatbox__button button,
+.chatbox__button button:focus,
+.chatbox__button button:visited {
+    padding: 10px;
+    background: white;
+    border: none;
+    outline: none;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+    </style>
+
+    <!-- Title -->
+    <section id="title" class="gradient-background1">
+        <div class="container">
+            <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+              <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <img src="{{ url_for('static', filename='logo2.png') }}" alt="AGRO-IOT Logo" width="75" height="75" class="me-2 ">
+                <!-- Replace "path_to_your_logo.png" with the actual path to your logo image -->
+                <span class="fs-4 visually-hidden">AGRO-IOT</span>
+            </a>
+                </a>
+
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a href="#features" class="nav-link ">Home</a></li>
+                    <li class="nav-item"><a href="#pricing" class="nav-link" >Weather Info</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+                </ul>
+            </header>
+        </div>
+        <div class="container col-xxl-8 px-4 ">
+            <div class="row flex-lg-row-reverse align-items-center g-5">
+              <div class="col-12 col-md-8 col-lg-6">
+                <video width="150%" height="50%"autoplay loop muted playsinline class="demo-video">
+                  <source src="{{ url_for('static', filename='lal.mp4') }}" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
+            </div>
+                <div class="col-lg-6">
+                    <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Shake hands with technology to enhance agriculture</h1>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <button type="button" class="btn btn-light btn-lg px-4 me-md-2"><svg xmlns="http://www.w3.org/2000/svg"
+                            width="16" height="16" fill="currentColor" class="bi bi-apple mb-1" viewBox="0 0 16 16">
+                            <path
+                            d="M11.182.008C11.148-.03 9.923.023 8.857 1.18c-1.066 1.156-.902 2.482-.878 2.516.024.034 1.52.087 2.475-1.258.955-1.345.762-2.391.728-2.43Zm3.314 11.733c-.048-.096-2.325-1.234-2.113-3.422.212-2.189 1.675-2.789 1.698-2.854.023-.065-.597-.79-1.254-1.157a3.692 3.692 0 0 0-1.563-.434c-.108-.003-.483-.095-1.254.116-.508.139-1.653.589-1.968.607-.316.018-1.256-.522-2.267-.665-.647-.125-1.333.131-1.824.328-.49.196-1.422.754-2.074 2.237-.652 1.482-.311 3.83-.067 4.56.244.729.625 1.924 1.273 2.796.576.984 1.34 1.667 1.659 1.899.319.232 1.219.386 1.843.067.502-.308 1.408-.485 1.766-.472.357.013 1.061.154 1.782.539.571.197 1.111.115 1.652-.105.541-.221 1.324-1.059 2.238-2.758.347-.79.505-1.217.473-1.282Z" />
+                            <path
+                            d="M11.182.008C11.148-.03 9.923.023 8.857 1.18c-1.066 1.156-.902 2.482-.878 2.516.024.034 1.52.087 2.475-1.258.955-1.345.762-2.391.728-2.43Zm3.314 11.733c-.048-.096-2.325-1.234-2.113-3.422.212-2.189 1.675-2.789 1.698-2.854.023-.065-.597-.79-1.254-1.157a3.692 3.692 0 0 0-1.563-.434c-.108-.003-.483-.095-1.254.116-.508.139-1.653.589-1.968.607-.316.018-1.256-.522-2.267-.665-.647-.125-1.333.131-1.824.328-.49.196-1.422.754-2.074 2.237-.652 1.482-.311 3.83-.067 4.56.244.729.625 1.924 1.273 2.796.576.984 1.34 1.667 1.659 1.899.319.232 1.219.386 1.843.067.502-.308 1.408-.485 1.766-.472.357.013 1.061.154 1.782.539.571.197 1.111.115 1.652-.105.541-.221 1.324-1.059 2.238-2.758.347-.79.505-1.217.473-1.282Z" />
+                            </svg> Download</button>
+                            <button type="button" class="btn btn-outline-light btn-lg px-4"><svg xmlns="http://www.w3.org/2000/svg"
+                              width="16" height="16" fill="currentColor" class="bi bi-google-play mb-1" viewBox="0 0 16 16">
+                              <path
+                                d="M14.222 9.374c1.037-.61 1.037-2.137 0-2.748L11.528 5.04 8.32 8l3.207 2.96 2.694-1.586Zm-3.595 2.116L7.583 8.68 1.03 14.73c.201 1.029 1.36 1.61 2.303 1.055l7.294-4.295ZM1 13.396V2.603L6.846 8 1 13.396ZM1.03 1.27l6.553 6.05 3.044-2.81L3.333.215C2.39-.341 1.231.24 1.03 1.27Z" />
+                            </svg> Download</button>
+                          
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features -->
+<section id="features">
+  <div class="container mt-5">
+      <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+          <div class="col d-flex align-items-start">
+              <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="30" fill="currentColor" class="bi bi-check2-circle" viewBox="0 0 16 16">
+                      <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0z" />
+                      <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l7-7z" />
+                  </svg>
+              </div>
+              <!-- <div class="card">
+                <div class="card-body">
+                    <h3 class="fs-2">Government Accreditation</h3>
+                    <p>We've been recognized nationally</p>
+                </div>
+            </div> -->
+            <div class="card" style="background-image: linear-gradient(45deg, #8a2be2, #9e3dde, #8a2be2, #9e3dde); background-size: 400% 400%; animation: gradientAnimation 6s infinite;">
+              <style>
+                  @keyframes gradientAnimation {
+                      0% {
+                          background-position: 0% 50%;
+                      }
+                      100% {
+                          background-position: 100% 50%;
+                      }
+                  }
+              </style>
+              <div class="card-body" style="padding-left: 20px;">
+                  <h3 class="fs-2 text-white">Government Accreditation</h3>
+                  <p class="text-white">We've been recognized nationally</p>
+              </div>
+          </div>
+          
+          
+            
+          </div>
+          <div class="col d-flex align-items-start">
+              <!-- Second feature content -->
+              <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="30" fill="currentColor" class="bi bi-mortarboard" viewBox="0 0 16 16">
+                      <path d="M8.211 2.047a.5.5 0 0 0-.422 0l-7.5 3.5a.5.5 0 0 0 .025.917l7.5 3a.5.5 0 0 0 .372 0L14 7.14V13a1 1 0 0 0-1 1v2h3v-2a1 1 0 0 0-1-1V6.739l.686-.275a.5.5 0 0 0 .025-.917l-7.5-3.5ZM8 8.46 1.758 5.965 8 3.052l6.242 2.913L8 8.46Z" />
+                      <path d="M4.176 9.032a.5.5 0 0 0-.656.327l-.5 1.7a.5.5 0 0 0 .294.605l4.5 1.8a.5.5 0 0 0 .372 0l4.5-1.8a.5.5 0 0 0 .294-.605l-.5-1.7a.5.5 0 0 0-.656-.327L8 10.466 4.176 9.032Zm-.068 1.873.22-.748 3.496 1.311a.5.5 0 0 0 .352 0l3.496-1.311.22.748L8 12.46l-3.892-1.556Z" />
+                  </svg>
+              </div>
+              <!-- <div class="card">
+                <div class="card-body">
+                    <h3 class="fs-2">Incredible Intel</h3>
+                    <p>Our team comprises highly qualified and experienced engineers</p>
+                </div>
+            </div> -->
+            <div class="card" style="background-image: linear-gradient(45deg, #0074e4, #00a1e9, #0074e4, #00a1e9); background-size: 400% 400%; animation: gradientAnimation 6s infinite; padding-bottom: 15px;">
+              <style>
+                  @keyframes gradientAnimation {
+                      0% {
+                          background-position: 0% 50%;
+                      }
+                      100% {
+                          background-position: 100% 50%;
+                      }
+                  }
+              </style>
+              <div class="card-body">
+                  <h3 class="fs-2 text-white">Incredible Analysis</h3>
+                  <p class="text-white">Our team comprises highly qualified and experienced engineers</p>
+              </div>
+          </div>
+          
+            
+          </div>
+          <div class="col d-flex align-items-start">
+              <!-- Third feature content -->
+              <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="30" fill="currentColor" class="bi bi-arrow-through-heart" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M2.854 15.854A.5.5 0 0 1 2 15.5V14H.5a.5.5 0 0 1-.354-.854l1.5-1.5A.5.5 0 0 1 2 11.5h1.793l.53-.53c-.771-.802-1.328-1.58-1.704-2.32-.798-1.575-.775-2.996-.213-4.092C3.426 2.565 6.18 1.809 8 3.233c1.25-.98 2.944-.928 4.212-.152L13.292 2 12.147.854A.5.5 0 0 1 12.5 0h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.854.354L14 2.707l-1.006 1.006c.236.248.44.531.6.845.562 1.096.585 2.517-.213 4.092-.793 1.563-2.395 3.288-5.105 5.08L8 13.912l-.276-.182a21.86 21.86 0 0 1-2.685-2.062l-.539.54V14a.5.5 0 0 1-.146.354l-1.5 1.5Zm2.893-4.894A20.419 20.419 0 0 0 8 12.71c2.456-1.666 3.827-3.207 4.489-4.512.679-1.34.607-2.42.215-3.185-.817-1.595-3.087-2.054-4.346-.761L8 4.62l-.358-.368c-1.259-1.293-3.53-.834-4.346.761-.392.766-.464 1.845.215 3.185.323.636.815 1.33 1.519 2.065l1.866-1.867a.5.5 0 1 1 .708.708L5.747 10.96Z" />
+                  </svg>
+              </div>
+              <!-- <div class="card">
+                <div class="card-body">
+                    <h3 class="fs-2">User Friendly</h3>
+                    <p>Very easy to use for the farmers</p>
+                </div>
+            </div> -->
+            <div class="card w-100" style="padding-bottom: 40px; background-image: linear-gradient(45deg, #ff5733, #ffcc33, #ff5733, #ffcc33); background-size: 400% 400%; animation: gradientAnimation 6s infinite;">
+              <style>
+                  @keyframes gradientAnimation {
+                      0% {
+                          background-position: 0% 50%;
+                      }
+                      100% {
+                          background-position: 100% 50%;
+                      }
+                  }
+              </style>
+              <div class="card-body">
+                  <h3 class="fs-2 text-white">User Friendly</h3>
+                  <p class="text-white">Very easy to use for the farmers</p>
+              </div>
+          </div>
+          
+          
+          
+            
+            
+          </div>
+      </div>
+  </div>
+</section>
+
+
+<!-- The rest of your content goes here -->
+  <!-- Pricing -->
+  <section id="pricing">
+    <div class="container">
+      <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+        <h2 class="display-4 fw-normal">A Gem for Every farmer</h2>
+        <p class="fs-5 text-body-secondary">Easy to understand
+      </div>
+      <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3" style="background-image: linear-gradient(to bottom, #e19119, #dd3d11); color: white;">
+              <h4 class="my-0 fw-normal">Rain Info:</h4>
+          </div>          
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title" id="rain">Connect To Sensor</small></h1>
+              <h2 class="card-title pricing-card-title" id="rain-status">Connect To Sensor</small></h2>
+              <button type="button" class="w-100 btn btn-lg custom-button">
+                <a href="./index1" class="w-100 btn btn-lg btn-outline-dark" style="text-decoration: none; color: white;">Further Details</a>
+            </button> 
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3" style="background-image: linear-gradient(to bottom,  #e19119, #dd3d11); color: white;">
+              <h4 class="my-0 fw-normal">Temperature and Humidity:</h4>
+          </div>
+          
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title" id="humidity">Connect To Sensor</small></h1>
+              <h2 class="card-title pricing-card-title" id="temperature">Connect To Sensor</h2>
+              <button type="button" class="w-100 btn btn-lg custom-button">
+                <a href="{{ url_for('static', filename='index2.html') }}" class="w-100 btn btn-lg btn-outline-dark" style="text-decoration: none; color: white;">Further Details</a>
+            </button> 
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm ">
+            <div class="card-header py-3" style="background-image: linear-gradient(to bottom,  #e19119, #dd3d11); color: white;">
+              <h4 class="my-0 fw-normal">Soil Moisture:</h4>
+          </div>
+          
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title" id="soil">Connect To Sensor</small></h1>
+              <h2 class="card-title pricing-card-title" id="soil-status">Connect To Sensor</h2>
+              <button type="button" class="w-100 btn btn-lg custom-button">
+                <a href="./chart_soilms" class="w-100 btn btn-lg btn-outline-dark" style="text-decoration: none; color: white;">Further Details</a>
+            </button> 
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm ">
+            <div class="card-header py-3" style="background-image: linear-gradient(to bottom,  #e19119, #dd3d11); color: white;">
+              <h4 class="my-0 fw-normal">Sunlight:</h4>
+          </div>
+          
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title" id="ldr">Connect To Sensor</small></h1>
+              <h2 class="card-title pricing-card-title" id="ldr-status">Connect To Sensor</h2>
+              <button type="button" class="w-100 btn btn-lg custom-button">
+                <a href="{{ url_for('static', filename='index4.html') }}" class="w-100 btn btn-lg btn-outline-dark" style="text-decoration: none; color: white;">Further Details</a>
+            </button> 
+            </div>
+          </div>
+        </div>
+        
+        
+
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm ">
+            <div class="card-header py-3" style="background-image: linear-gradient(to bottom,  #e19119, #dd3d11); color: white;">
+              <h4 class="my-0 fw-normal">Plant Disease Prediction:</h4>
+          </div>
+          
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">Check Your Plant Health</small></h1>
+              <button type="button" class="w-100 btn btn-lg custom-button">
+                <a href="./index5" class="w-100 btn btn-lg btn-outline-dark" style="text-decoration: none; color: white;">Further Details</a>
+            </button> 
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm ">
+            <div class="card-header py-3" style="background-image: linear-gradient(to bottom,  #e19119, #dd3d11); color: white;">
+              <h4 class="my-0 fw-normal">Cattle Disease Prediction:</h4>
+          </div>
+          
+            <div class="card-body">
+              <h1 class="card-title pricing-card-title">Check Your Cattle Health</small></h1>
+              <button type="button" class="w-100 btn btn-lg custom-button">
+                <a href="./index7" class="w-100 btn btn-lg btn-outline-dark" style="text-decoration: none; color: white;">Further Details</a>
+            </button> 
+            </div>
+          </div>
+        </div>
+
+        <div class="container d-flex justify-content-center align-items-center" style="min-height: 40vh;">
+          <div class="col">
+              <div class="card mb-4 rounded-3 shadow-sm">
+                  <div class="card-header py-3" style="background-image: linear-gradient(to bottom, #e19119, #dd3d11); color: white;">
+                      <h4 class="my-0 fw-normal">Pest Detection:</h4>
+                  </div>
+      
+                  <div class="card-body">
+                      <h1 class="card-title pricing-card-title">Check For Pests in Crops</h1>
+                      <button type="button" class="w-100 btn btn-lg custom-button">
+                          <a href="./index5" class="w-100 btn btn-lg btn-outline-dark" style="text-decoration: none; color: white;">Further Details</a>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+      
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section id="testimonial">
+    <div class="my-5">
+      <div class="p-5 text-center bg-body-tertiary">
+        <div class="container py-5">
+          <h2 class="text-body-emphasis">"I no longer have to rush and spend hours on the field watering my crops"</h2>
+          <img class="profile-img mt-5 rounded-circle" src="{{ url_for('static', filename='sukhen.jpeg') }}" >
+          <p class="col-lg-8 mx-auto lead mt-2">
+            Sukhen,BIRBHUM
+          </p>
+        </div>
+        <div class="container">
+          <div class="chatbox">
+              <div class="chatbox__support">
+                  <div class="chatbox__header">
+                      <div class="chatbox__image--header">
+                          <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-5--v1.png" alt="image">
+                      </div>
+                      <div class="chatbox__content--header">
+                          <h4 class="chatbox__heading--header">Chat support</h4>
+                          <p class="chatbox__description--header">Hi. My name is Anubhab. How can I help you?</p>
+                      </div>
+                  </div>
+                  <div class="chatbox__messages">
+                      <div></div>
+                  </div>
+                  <div class="chatbox__footer">
+                      <input type="text" placeholder="Write a message...">
+                      <button class="chatbox__send--footer send__button">Send</button>
+                  </div>
+              </div>
+              <div class="chatbox__button">
+                  <button><img src="{{ url_for('static', filename='images/chatbox-icon.svg') }}" /></button>
+              </div>
+          </div>
+      </div>
+<!-- Footer -->
+<footer id="contact" class="gradient-background2">
+    <div class="container">
+      <div class="row py-4 mt-5 border-top">
+        <!-- Social Media Links Section -->
+        <section class="col-12 col-md-4 col-lg-3 mb-3">
+          <div class="d-flex flex-column align-items-center text-center text-md-start">
+            <div class="me-md-4">
+              <div class="text-center"> <!-- Added text-center class here -->
+                <h5><span>Get connected with us on social networks:</span></h5>
+              </div>
+            </div>
+            <div>
+              <p>
+                <a href="#" class="me-3 text-reset">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+              </p>
+              <p>
+                <a href="#" class="me-3 text-reset">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </p>
+              <p>
+                <a href="#" class="me-3 text-reset">
+                  <i class="fab fa-instagram"></i>
+                </a>
+              </p>
+              <p>
+                <a href="https://github.com/MrKnightmare007" class="me-3 text-reset">
+                  <i class="fab fa-github"></i>
+                </a>
+              </p>
+            </div>
+          </div>
+        </section>
+  
+        <!-- Footer Section Links -->
+        <section class="col-12 col-md-4 col-lg-2 mb-3">
+          <h5>Sections</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#title" class="nav-link p-0 text-body-secondary">Home</a></li>
+            <li class="nav-item mb-2"><a href="#features" class="nav-link p-0 text-body-secondary">Features</a></li>
+            <li class="nav-item mb-2"><a href="#pricing" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+            <li class="nav-item mb-2"><a href="#testimonial" class="nav-link p-0 text-body-secondary">Testimonial</a></li>
+            <li class="nav-item mb-2"><a href="#contact" class="nav-link p-0 text-body-secondary">Contact</a></li>
+          </ul>
+        </section>
+  
+        <!-- Section: Links -->
+        <section class="col-12 col-md-4 col-lg-2 mb-3">
+          <h5>Useful Links</h5>
+          <ul class="nav flex-column">
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Login</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Sign Up</a></li>
+            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Contact</a></li>
+          </ul>
+        </section>
+  
+        <!-- Section: Contact Info -->
+        <section class="col-12 col-md-12 col-lg-5 mb-3">
+          <h5>Contact</h5>
+          <p><i class="fas fa-home me-3"></i> Kolkata, Kol-700060, West-Bengal, India</p>
+          <p><i class="fas fa-envelope me-3"></i> info_AgroIot@gmail.com</p>
+          <p><i class="fas fa-phone me-3"></i> +91 9883216898</p>
+          <p><i class="fas fa-print me-3"></i> +91 9163065575</p>
+        </section>
+      </div>
+    </div>
+  </footer>
+
+<!-- Footer -->
+
+
+<!-- Bootstrap JS and custom script -->
+<script>
+  var $SCRIPT_ROOT = { request,script_root,tojson,safe };
+</script>
+
+
+  <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+<!-- <script src="script.js"></script> -->
+<script>
+    function fetchData() {
+        fetch('/temp')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('temperature').textContent = data + "°C";
+            })
+            .catch(error => {
+                console.error('Error fetching temperature data:', error);
+            });
+        fetch('/ldr')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('ldr').textContent = data + " lux";
+                if (data < 700){
+                    document.getElementById('ldr-status').textContent = "Night Time";
+                }
+                else{
+                    document.getElementById('ldr-status').textContent = "Day Time";
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching temperature data:', error);
+            });
+        fetch('/humidity')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('humidity').textContent = data + "%";
+            })
+            .catch(error => {
+                console.error('Error fetching temperature data:', error);
+            });
+        fetch('/soil')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('soil').textContent = data + "%";
+                if (data<0){
+                    document.getElementById('soil-status').textContent = "Sensor not on soil";
+                }
+                else if (data>=0 && data <=10){
+                    document.getElementById('soil-status').textContent = "Dry Soil";
+                }
+                else{
+                    document.getElementById('soil-status').textContent = "Soil Wet";
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching temperature data:', error);
+            });
+        fetch('/rain')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('rain').textContent = data;
+                if (data > 650){
+                    document.getElementById('rain-status').textContent = "Not Raining";
+                }
+                else if (data > 300 && data <650){
+                    document.getElementById('rain-status').textContent = "Moderately Raining";
+                }
+                else if (data < 300){
+                    document.getElementById('rain-status').textContent = "Heavily Raining";
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching temperature data:', error);
+            });
+    }
+    // Refresh temperature data when the page loads
+    fetchData();
+    // Refresh temperature data every 2 seconds
+    setInterval(fetchData, 1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/logo.png" type="image/x-icon">
+    <title>KRISHIKONNECT</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('/static/farming\ picture.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .gif-container {
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #007BFF;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            margin-top: 15px;
+            color: #666;
+        }
+
+        a {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        #logout-button {
+            display: none;
+        }
+    </style>
+    <script src="https://cdn.auth0.com/js/auth0/9.13/auth0.min.js"></script>
+</head>
+<body>
+    <div class="gif-container">
+        <img width="700px" height="100px" src="/static/Untitled-design-2--unscreen.gif" width="700px" height="100px" autoplay loop muted playsinline class="demo-gif">
+    </div>
+
+    <div class="form-container" id="login-form">
+        <h2>Login</h2>
+        <form method="POST" action="{{ url_for('dashboard') }}">
+            <label for="login-username">Username:</label>
+            <input type="text" id="login-username" name="username" placeholder="Enter your username" required>
+            <br>
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" name="password" placeholder="Enter your password" required>
+            <br>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="#" onclick="toggleForm('register')">Register</a></p>
+    </div>
+
+    <div class="form-container" id="register-form" style="display: none;">
+        <h2>Register</h2>
+        <form>
+            <label for="register-username">Username:</label>
+            <input type="text" id="register-username" name="username" placeholder="Choose a username" required>
+            <br>
+            <label for="register-password">Password:</label>
+            <input type="password" id="register-password" name="password" placeholder="Choose a password" required>
+            <br>
+            <button onclick="register()">Register</button>
+        </form>
+        <p>Already have an account? <a href="#" onclick="toggleForm('login')">Login</a></p>
+    </div>
+
+    <button id="logout-button" onclick="logout()">Logout</button>
+
+    <script>
+        // Your existing script for Auth0 and form toggling
+    </script>
+</body>
+</html>

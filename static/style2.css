@@ -1,0 +1,91 @@
+/* Reset default styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    color: black;
+    background: url('greenbg.jpg') center/cover no-repeat;
+    margin-bottom: 100px;
+    height: 600px;
+    animation: slideIn 1s ease-out;
+}
+
+/* Header styles */
+header {
+    text-align: center;
+    padding: 50px;
+    color: #dcd5d5;
+    animation: slideInUp 1s ease-out; 
+}
+
+header h1 {
+    font-size: 36px;
+}
+
+/* Container styles */
+.container {
+    text-align: center;
+    background-color: #ece5e5;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 700px;
+    opacity: 1;
+    animation: fadeInUp 2s ease-in-out;
+    
+}
+
+/* Data display styles */
+.data {
+    margin: 20px 0;
+}
+
+.data p {
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Temperature and humidity values styles */
+#temperature,
+#humidity {
+    font-size: 24px;
+    color: #0c481c;
+    font-weight: bold;
+    animation: zoomIn 2s ease-in-out;
+}
+
+/* Loading text style */
+#temperature::after,
+#humidity::after {
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    color: #999;
+}
+
+/* Add interactivity */
+button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+

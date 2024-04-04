@@ -1,0 +1,72 @@
+/* Reset default styles */
+body {
+    background-image: url('greenbg.jpg'); /* Set your background image */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header styles */
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+header h1 {
+    font-size: 36px;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container styles */
+.container {
+    text-align: center;
+    background-color: bisque;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Sunlight data styles */
+.sunlight-data {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+h2 {
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
+    color: #fff; /* Text color */
+}
+
+#sunlight-value {
+    font-size: 36px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #fff; /* Text color */
+}
+
+#generate-button {
+    background: linear-gradient(to bottom, #4CAF50, #45a049); /* Gradient background */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#generate-button:hover {
+    background: linear-gradient(to bottom, #45a049, #4CAF50); /* Gradient background on hover */
+}
+

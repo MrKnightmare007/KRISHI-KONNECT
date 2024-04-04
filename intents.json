@@ -1,0 +1,143 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi",
+        "How are you",
+        "Is anyone there?",
+        "Hello",
+        "Good day"
+      ],
+      "responses": [
+        "Hey :-)",
+        "Hello, thanks for visiting",
+        "Hi there, what can I do for you?",
+        "Hi there, how can I help?"
+      ]
+    },
+
+
+    {
+      "tag": "greetingb",
+      "patterns": [
+        "Hey",
+        "What's up",
+        "Is anyone here?",
+        "Good morning"
+      ],
+      "responses": [
+        "হ্যালো",
+        "হ্যালো, আসবার জন্য ধন্যবাদ",
+        "হাই স্যার, আমি কী করতে পারি?",
+        "হাই স্যার, কীভাবে সাহায্য করতে পারি?"
+      ]
+    },
+
+
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you later", "Goodbye"],
+      "responses": [
+        "See you later, thanks for visiting",
+        "Have a nice day",
+        "Bye! Come back again soon."
+      ]
+    },
+
+    {
+      "tag": "goodbyeb",
+      "patterns": ["See you soon", "Bye for now"],
+      "responses": [
+        "পরে দেখা হবে,আসবার জন্য ধন্যবাদ",
+        "আপনার সুন্দর দিন কাটুক",
+        "বাই! শীঘ্রই আবার ফিরে এসো।"
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks","That's helpful"],
+      "responses": ["Happy to help!", "Any time!", "My pleasure"]
+    },
+
+    {
+      "tag": "thanksb",
+      "patterns": ["Thank you","Thank's a lot!"],
+      "responses": [
+        "সাহায্য করতে খুশি!",
+        "যে কোন সময়!",
+        "আমার আনন্দ"
+    ]
+    },
+    
+        
+      
+          {
+            "tag": "agriculture",
+            "patterns": [
+              "Tell me about modern agriculture",
+              "What crops do you recommend?",
+              "How to improve crop yield?",
+              "Agricultural practices"
+            ],
+            "responses": [
+              "Modern agriculture involves the use of advanced technologies and practices for efficient crop cultivation.",
+              "Consider using precision farming techniques for better crop management.",
+              "Crop rotation is a good practice to maintain soil fertility."
+            ]
+          },
+
+          {
+            "tag": "agricultureb",
+            "patterns": [
+              "Share insights on contemporary farming methods",
+              "Which crops do you suggest for optimal yield?",
+              "Tips for enhancing crop productivity",
+              "Discuss modern agricultural techniques"
+          ],
+          
+          "responses": [
+            "আধুনিক কৃষি পদ্ধতি সম্পর্কে জানান",
+            "আপনি কোন ফল শৃঙ্খলা করেন?",
+            "ফসল উৎপাদন বাড়ানোর টিপস",
+            "আধুনিক কৃষি পদ্ধতি নিয়ে আলোচনা করুন"
+        ]
+        
+          },
+
+          
+
+          {
+            "tag": "cattle_care",
+            "patterns": [
+              "How to care for cattle?",
+              "Cattle health tips",
+              "Best practices for raising cattle"
+            ],
+            "responses": [
+              "Ensure your cattle have access to clean water and nutritious feed.",
+              "Regular veterinary check-ups are crucial for cattle health.",
+              "Provide a comfortable and clean living environment for your cattle."
+            ]
+          },
+          {
+            "tag": "cattle_careb",
+            "patterns": [
+              "Tips on maintaining cattle health",
+              "What are the best practices for caring for cattle?",
+              "Advice on raising healthy cattle",
+              "Cattle husbandry techniques"
+          ],
+          
+          "responses": [
+            "গাভীর স্বাস্থ্য রক্ষণের উপকারিতা",
+            "গাভীর স্বাস্থ্য টিপস",
+            "গাভীর পালনের জন্য শ্রেষ্ঠ অনুশাসন",
+            "গাভীর পালনের ক্ষেত্রে উপযুক্ত প্রযুক্তি"
+        ]
+        
+          }
+
+          
+        ]
+      }

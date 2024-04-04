@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            background: url("/static/cattle\ pic.jpg") center/cover no-repeat;
+            background:cover;
+            height:850px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .container {
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            animation: fadeIn 0.5s ease-out;
+            opacity:0.9;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            color: #000000;
+            position: relative;
+            
+        }
+
+        h1::after {
+            content: ''; /* Required for pseudo-elements */
+            position: absolute;
+            left: 0;
+            bottom: -5px; /* Adjust this value to control the distance of the underline */
+            width: 100%;
+            height: 2px; /* Adjust this value to control the thickness of the underline */
+            background: linear-gradient(90deg,#081f2e, #070522);
+            background-size: 200% 100%; /* Adjust the background size for the gradient animation */
+            animation: underlineAnimation 1.5s ease-in-out  ; /* Adjust the animation duration as needed */
+        }
+
+@keyframes underlineAnimation {
+            0% {
+                transform: scaleX(0);
+            }
+            100% {
+                transform: scaleX(1);
+            }
+        }
+        
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #343a40;
+        }
+
+        .form-control {
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #ffffff;
+            transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        #predictionResult {
+            margin-top: 20px;
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+    <title>Cattle Disease Predictor</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Cattle Disease Predictor</h1>
+        <form action="/predict" method="post">
+            <!-- Menu 1 to Menu 6 -->
+            {% for i in range(1, 7) %}
+            <div class="form-group">
+                <label for="symptom{{ i }}">Select Symptom {{ i }}:</label>
+                <select class="form-control" id="symptom{{ i }}" name="symptom{{ i }}" required>
+                    <option value="" {% if selected_symptoms is not defined or selected_symptoms[i-1] == '' %}selected{% endif %} disabled>Choose a Symptom</option>
+                    {% for symptom in symptoms %}
+                        <option value="{{ symptom }}" {% if selected_symptoms is defined and selected_symptoms[i-1] == symptom %}selected{% endif %}>{{ symptom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Predict Disease</button>
+        </form>
+        <div class="mt-5" id="predictionResult">
+            <!-- Prediction result will be displayed here -->
+            {% if predictionResult %}
+                <h3>Prediction Result:</h3>
+                <p>{{ predictionResult }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var symptomSelects = $("[id^='symptom']");
+
+            symptomSelects.on("change", function () {
+                handleSymptomChange($(this));
+            });
+
+            function handleSymptomChange(changedSelect) {
+                var symptomSelects = $("[id^='symptom']");
+                var selectedValues = symptomSelects.map(function () {
+                    return $(this).val();
+                }).get();
+
+                symptomSelects.each(function () {
+                    var select = $(this);
+                    if (!select.is(changedSelect)) {
+                        select.prop("disabled", false);
+
+                        var otherSelectIndex = selectedValues.indexOf(select.val());
+                        if (otherSelectIndex !== -1) {
+                            selectedValues.splice(otherSelectIndex, 1);
+                        }
+                    }
+                });
+
+                var selectedValue = changedSelect.val();
+                if (selectedValue !== '') {
+                    symptomSelects.each(function () {
+                        var select = $(this);
+                        if (!select.is(changedSelect) && selectedValues.includes(select.val())) {
+                            select.prop("disabled", true);
+                            select.prop("selectedIndex", 0);
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

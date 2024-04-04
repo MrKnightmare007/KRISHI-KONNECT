@@ -1,0 +1,15 @@
+Hardware required:-
+1) Arduino UNO+WiFi R3 ATmega328P+Node MCU ESP8266 CH340G Compatible Board - 1pc
+2) 18650 Battery - 3Pc
+3) LDR Sensor - 2pc
+4) DTH22 - 1Pc
+5) Battery Charger - 1Pc
+6) 18650 Battery Case - 1Pc
+7) Jumper Wires - 50Pc (male to male, male to female and female to female)
+8) Soil Sensor - 1pc
+9) Rain Sensor - 1Pc
+10) 4 channel relay - 2pc
+11) 2 channel relay - 1pc
+12) Micro usb data cable - 1pc
+13) Arduino Power jack -1pc
+14) Bread Board - 2pc

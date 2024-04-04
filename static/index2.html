@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/logo.png" type="image/x-icon">
+    <title>Temperature and Humidity</title>
+    <link rel="stylesheet" href="./style2.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #eee8e8;
+            color: black;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgb(188, 220, 190);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            animation: fadeInUp 1s ease-out;
+            height: 400px;
+        }
+
+        h1 {
+            font-family: Tahoma, Verdana, sans-serif;
+            background: -webkit-linear-gradient(#145142f1, #082f11);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 2em;
+            margin-bottom: 20px;
+            animation: slideInUp 1.5s ease-in-out;
+            /* Add underline to the text */
+            position: relative;
+            text-decoration: none;
+        }
+
+        h1:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px; /* Adjust the distance of the underline from text */
+            width: 100%;
+            height: 2px; /* Set the height of the underline */
+            background-color: #1f4068; /* Set the underline color to match the text color */
+            animation: underlineAnimation 1.5s ease-in-out ; /* Add animation to the underline */
+        }
+
+        .data-container {
+            margin-top: 75px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .data-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+
+        .data-item span:first-child {
+            font-size: 2rem;
+        }
+
+        #temperature,
+        #humidity {
+            color: #1f4068; /* Adjusted color for better visibility */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes underlineAnimation {
+            0% {
+                transform: scaleX(0);
+            }
+            100% {
+                transform: scaleX(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>TEMPERATURE AND HUMIDITY</h1>
+        <div class="data-container">
+            <div class="data-item">
+                <span style="background-color:#a3caa3">Temperature:</span>
+                <span id="temperature">Connect To Sensor</span>
+            </div>
+            <div class="data-item">
+                <span style="background-color:#a3caa3">Humidity:</span>
+                <span id="humidity">Connect To Sensor</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fetch data and update the UI here
+        function fetchTData() {
+            fetch('/temp')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('temperature').textContent = data + "°C";
+                })
+                .catch(error => {
+                    console.error('Error fetching temperature data:', error);
+                }); 
+          
+        }
+
+        // Fetch data initially and set interval for periodic updates
+        fetchTData();
+        setInterval(fetchTData, 2000);  // Update every 30 seconds
+        function fetchData() {
+            fetch('/humidity')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('humidity').textContent = data + "%";
+                })
+                .catch(error => {
+                    console.error('Error fetching temperature data:', error);
+                }); 
+          
+        }
+
+        // Fetch data initially and set interval for periodic updates
+        fetchData();
+        setInterval(fetchData, 2000);  // Update every 30 seconds
+    </script>
+</body>
+</html>
