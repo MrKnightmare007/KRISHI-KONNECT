@@ -135,5 +135,5 @@ For support, email teamriot5747@gmail.com or join our Slack channel.
 [Apache-2.0](http://www.apache.org/licenses/)
 
 
-![Logo]([https://i.ibb.co/Y8ry53s/logo1.png](https://i.ibb.co/jTDNbNH/Picsart-24-02-02-11-18-54-134.png))
+![Logo](https://i.ibb.co/jTDNbNH/Picsart-24-02-02-11-18-54-134.png)
 
