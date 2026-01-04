@@ -86,7 +86,7 @@ python3 app.py
 
 ## Screenshots
 
-![App Screenshot]([https://ibb.co/bgmdhDz3](https://i.ibb.co/tMPy7kFq/IOT-CAR.jpg))
+![App Screenshot](https://i.ibb.co/tMPy7kFq/IOT-CAR.jpg)
 
 ![App Screenshot](https://i.ibb.co/FJPCNkK/Screenshot-2024-04-05-145032.png)
 
